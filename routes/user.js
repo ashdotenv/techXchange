@@ -14,9 +14,6 @@ router.get("/", verifyToken, isUser, (req, res) => {
   res.send("welcome to user routes");
 });
 
-router.post("/", verifyToken, isUser, (req, res) => {
-  res.send("welcome to user routes");
-});
 router.delete("/deleteProduct/:id", verifyToken, isUser, deleteProduct);
 router.patch("/updateProduct/:productId", verifyToken, isUser, updateProduct);
 router.post("/placeOrder", placeOrder);
