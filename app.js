@@ -1,7 +1,7 @@
 const { PORT, DB_URI, COOKIE_SECRET } = require("./config");
 const express = require("express");
 const app = express();
-const port = PORT || 3000;
+const port = PORT || 5000;
 const bodyParser = require("body-parser");
 const router = require("./routes");
 const cookieParser = require("cookie-parser");
@@ -11,6 +11,7 @@ const { default: mongoose } = require("mongoose");
 const { adminRouter } = require("./routes/adminRoutes");
 const { JSONHandler } = require("./middleware/JSONHandler");
 const { routeNotFound } = require("./middleware/routeNotFound");
+const cors = require('cors');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 mongoose
@@ -21,6 +22,7 @@ mongoose
   .catch(() => {
     console.log("Couldn't Connect to DB");
   });
+app.use(cors());
 app.use(JSONHandler);
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
