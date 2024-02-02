@@ -10,7 +10,4 @@ const {
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/products", viewProducts);
-router.get("/test",(req,res)=>{
-  res.send("Nice")
-});
 module.exports = { indexRouter: router };
