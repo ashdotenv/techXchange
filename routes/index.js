@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const {
   viewProducts,
 } = require("../controller/productControllers/viewProducts");
-router.get("/",(req,res)=>{
+router.get("/test",(req,res)=>{
   res.send("CI/CD Test")
 })
 
