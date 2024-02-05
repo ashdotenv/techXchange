@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const {
   viewProducts,
 } = require("../controller/productControllers/viewProducts");
+router.get("/",(req,res)=>{
+  res.send("CI/CD Test")
+})
 
 router.post("/signup", signup);
 router.post("/login", login);
