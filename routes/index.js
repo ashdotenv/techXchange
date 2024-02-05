@@ -12,5 +12,6 @@ router.get("/test",(req,res)=>{
 
 router.post("/signup", signup);
 router.post("/login", login);
+
 router.get("/products", viewProducts);
 module.exports = { indexRouter: router };

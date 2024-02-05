@@ -8,5 +8,5 @@ RUN npm install
 
 EXPOSE 5000
 
-CMD ["nodemon", "app.js"]
+CMD ["node", "app.js"]
 

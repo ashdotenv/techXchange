@@ -41,7 +41,7 @@ const productSchema = z.object({
     "JBL",
     "Philips",
   ]),
-  seller: z.string(), // This will be overwritten with the value from req.body
+  seller: z.string(), 
   picture: z.string().optional(),
   location: z.string(),
   quantity: z.number().default(1),

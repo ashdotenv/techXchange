@@ -79,8 +79,8 @@ const login = async (req, res) => {
 
     const user = await userModel.findOne({
       $or: [
-        { username: credential ? undefined : username },
-        { email: credential ? userSchema : undefined },
+        { username: credential ? username : undefined },
+        { email: credential ? username : undefined },
       ],
     });
 
