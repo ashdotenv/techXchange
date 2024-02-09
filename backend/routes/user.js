@@ -9,10 +9,12 @@ const {
 } = require("../controller/productControllers/updateProduct");
 const router = express.Router();
 const { placeOrder } = require("../controller/productControllers/placeOrder");
+const { Dashboard } = require("../controller/userControllers/Dashboard");
 
 router.get("/", verifyToken, isUser, (req, res) => {
   res.send("welcome to user routes");
 });
+router.get("/dashboard", verifyToken, isUser,Dashboard);
 router.post("/", verifyToken, isUser, (req, res) => {
   res.send("welcome to user routes");
 });

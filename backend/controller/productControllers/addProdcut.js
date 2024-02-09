@@ -1,5 +1,6 @@
 const { z } = require("zod");
 const { productModel } = require("../../model/product.model");
+const { cloudinary:v2} = require('cloudinary');
 const productSchema = z.object({
   name: z.string().max(100).min(1),
   description: z.string().min(1),
@@ -41,7 +42,7 @@ const productSchema = z.object({
     "Philips",
   ]),
   seller: z.string(),
-  picture: z.string().optional(),
+  picture: z.array(z.string()).optional(),
   location: z.string(),
   quantity: z.number().default(1),
 });
@@ -60,5 +61,6 @@ const addProduct = async (req, res) => {
     res.status(400).json({ error: "Invalid data" });
   }
 };
+
 
 module.exports = { addProduct };

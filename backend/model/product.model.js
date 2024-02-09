@@ -75,7 +75,8 @@ const productDetails = new mongoose.Schema(
       required: true,
     },
     picture: {
-      type: String,
+      default:[],
+      type: Array,
     },
     location: {
       type: String,

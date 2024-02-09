@@ -68,27 +68,22 @@ const signup = async (req, res) => {
 
 const loginSchema = z.object({
   username: z.string().min(3).max(100).optional(),
-  email: z.string().email().optional(),
+  email : z.string().email().optional(),
   password: z.string().min(6),
 });
 
 const login = async (req, res) => {
   try {
-    const { username, email, password } = loginSchema.parse(req.body);
+    const { username, password } = loginSchema.parse(req.body);
 
-    let user;
+    const credential = username.includes("@");
 
-    if (email) {
-      user = await userModel.findOne({ email });
-    } else if (username) {
-      const isEmail = username.includes("@");
-      user = await userModel.findOne({
-        $or: [
-          { username: isEmail ? undefined : username },
-          { email: isEmail ? username : undefined },
-        ],
-      });
-    }
+    const user = await userModel.findOne({
+      $or: [
+        { username: credential ? username : undefined },
+        { email: credential ? username : undefined },
+      ],
+    });
 
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -113,7 +108,7 @@ const login = async (req, res) => {
         expires: new Date(Date.now() + 360 * 60 * 60 * 1000),
       })
       .status(200)
-      .json({ token });
+      .redirect("/user");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
