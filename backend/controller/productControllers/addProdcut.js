@@ -1,6 +1,5 @@
 const { z } = require("zod");
 const { productModel } = require("../../model/product.model");
-const { cloudinary:v2} = require('cloudinary');
 const productSchema = z.object({
   name: z.string().max(100).min(1),
   description: z.string().min(1),
