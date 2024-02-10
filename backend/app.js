@@ -27,5 +27,5 @@ mongoose
   app.use("/admin", adminRouter);
   app.use("/user", userRouter);
   app.use(router.indexRouter);
-  app.use(routeNotFound); 
-app.listen(port, () => console.log(`Serving on port ${port}`));
+  app.use(routeNotFound);
+app.listen(port, () => console.log(`Serving on  http://localhost:${port}`));
