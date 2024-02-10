@@ -123,7 +123,7 @@ const viewProducts = async (req, res) => {
       }
     });
 
-    const products = await productModel.find(filters);
+    const products = await productModel.find({filters});
 
     res.status(200).json({
       success: true,
