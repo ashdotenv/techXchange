@@ -8,6 +8,7 @@ const placeOrderSchema = z.object({
   quantity: z.number().min(1),
   paymentMethod: z.enum(['Credit Card', 'Debit Card', 'PayPal', 'Cash on Delivery']),
   shippingAddress: z.string(),
+  totalAmount:z.number()
 });
 
 const placeOrder = async (req, res) => {
