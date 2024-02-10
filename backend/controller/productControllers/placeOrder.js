@@ -1,5 +1,4 @@
 const { z } = require('zod');
-
 const { productModel } = require('../../model/product.model');
 const { orders } = require('../../model/orders.model');
 
@@ -8,15 +7,13 @@ const placeOrderSchema = z.object({
   quantity: z.number().min(1),
   paymentMethod: z.enum(['Credit Card', 'Debit Card', 'PayPal', 'Cash on Delivery']),
   shippingAddress: z.string(),
-  totalAmount:z.number()
 });
 
 const placeOrder = async (req, res) => {
   try {
     const validatedData = placeOrderSchema.parse(req.body);
     const { product, quantity, paymentMethod, shippingAddress } = validatedData;
-
-    const prod = await productModel.findOne({ _id: product });
+    const prod = await productModel.findById(product);
 
     if (!prod) {
       return res.status(400).json({ message: "Sorry, the product doesn't exist" });
@@ -30,7 +27,7 @@ const placeOrder = async (req, res) => {
       return res.status(400).json({ message: "Sorry, you can't purchase your own products" });
     }
 
-    const totalAmount = prod.price * quantity; 
+    const totalAmount = prod.price * quantity;
 
     const newOrder = {
       buyer: req.user.id,
@@ -42,22 +39,21 @@ const placeOrder = async (req, res) => {
       shippingAddress,
     };
 
-    const savedOrder = await orders.create(newOrder); 
+    const savedOrder = await orders.create(newOrder);
 
-    await productModel.findOneAndUpdate(
-      { _id: product },
+    await productModel.findByIdAndUpdate(
+      product,
       { $inc: { quantity: -quantity } }
     ).catch(error => {
       console.error('Error updating product quantity:', error);
-      throw error; 
+      throw error;
     });
-      
+
     res.status(201).json(savedOrder);
   } catch (error) {
     console.error('Error placing order:', error);
     res.status(400).json({ error: 'Invalid data' });
   }
 };
-
 
 module.exports = { placeOrder };
