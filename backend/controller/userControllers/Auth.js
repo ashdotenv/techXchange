@@ -107,7 +107,7 @@ const login = async (req, res) => {
         signed: true,
         expires: new Date(Date.now() + 360 * 60 * 60 * 1000),
       })
-      .status(200).json({success:true,message:"Login Successful"})
+      .status(200)
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });
