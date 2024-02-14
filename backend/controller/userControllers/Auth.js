@@ -71,19 +71,13 @@ const loginSchema = z.object({
   email : z.string().email().optional(),
   password: z.string().min(6),
 });
-
 const login = async (req, res) => {
   try {
     const { username, password } = loginSchema.parse(req.body);
+    let credintial =username.includes("@")?{email:username}:{username:username};
 
-    const credential = username.includes("@");
 
-    const user = await userModel.findOne({
-      $or: [
-        { username: credential ? username : undefined },
-        { email: credential ? username : undefined },
-      ],
-    });
+    const user = await userModel.findOne(credintial);
 
     if (!user) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -107,7 +101,7 @@ const login = async (req, res) => {
         signed: true,
         expires: new Date(Date.now() + 360 * 60 * 60 * 1000),
       })
-      .status(200)
+      .status(200).json({token})
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.errors });

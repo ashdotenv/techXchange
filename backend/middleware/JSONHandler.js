@@ -3,7 +3,8 @@ const JSONHandler = (err, req, res, next) => {
     res.status(400).json({ error: "Invalid JSON payload" });
   } else {
     next();
-  }
+ 
 };
+}
 
-module.exports = { JSONHandler };
+module.exports = { JSONHandler }

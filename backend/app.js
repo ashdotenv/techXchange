@@ -22,10 +22,7 @@ mongoose
   .catch(() => {
     console.log("Couldn't Connect to DB");
   });
-  app.use(cors({
-    origin:["http://localhost:5173"],
-    methods:["GET","PATH","POST","DELETE"]
-  }));
+  app.use(cors({}));
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
   app.use("/user", userRouter);

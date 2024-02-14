@@ -17,7 +17,7 @@ const deleteUsers = async (req, res) => {
         return res.status(200).json({ message: "User and associated products deleted successfully" });
     } catch (error) {
         console.error("Error:", error);
-        return res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" })
     }
 };
 

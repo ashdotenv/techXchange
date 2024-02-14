@@ -7,7 +7,7 @@ const {
   viewProducts,
 } = require("../controller/productControllers/viewProducts");
 router.get("/test",(req,res)=>{
-  res.send("CI/CD Test")
+  return res.send(".")
 })
 
 router.post("/signup", signup);
