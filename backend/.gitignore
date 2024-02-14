@@ -4,3 +4,4 @@ readme.node_modules
 .vscode
 .dockerignore
 ../client
+.github
