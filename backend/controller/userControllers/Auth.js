@@ -96,6 +96,7 @@ const login = async (req, res) => {
 
     res
       .cookie("token", token, {
+        sameSite:"none",
         httpOnly: true,
         maxAge: 360 * 60 * 60 * 1000,
         signed: true,
@@ -104,7 +105,7 @@ const login = async (req, res) => {
       .status(200).json({token})
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ error: error.errors });
+      return res.status(400).json({  error: error.errors });
     } else {
       console.error(error);
       return res.status(500).json({ error: "Internal server error" });
