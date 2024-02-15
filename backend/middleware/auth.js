@@ -5,7 +5,7 @@ require("dotenv").config();
 const verifyToken = (req, res, next) => {
   try {
     console.log(req.headers);
-    let token = req.headers.cookie.split("=")[1];
+    let token = req.headers["authorization"].split("=")[1];
     if (!token) {
       return res.status(401).json({
         success: false,
