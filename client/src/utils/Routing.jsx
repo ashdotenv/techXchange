@@ -1,19 +1,20 @@
-import { Routes,Route,Link } from "react-router-dom";
 import React from 'react'
-import Signup from "@/Signup";
-import Login from "@/Login";
-import Dashboard from "@/Dashboard";
-
+import {Route,Routes} from "react-router-dom"
+import Home from '../Home'
+import Login from '../Login'
+import Signup from '../Signup'
+import Dashboard from '../Dashboard'
 function Routing() {
+    
   return (
-    <>
-    <Routes >
-        <Route path="/"  >Home</Route>
-        <Route path="/signup" Component={Signup} ></Route>
-        <Route path="/login" Component={Login} ></Route>
-        <Route path="/user/dashboard" Component={Dashboard} ></Route>
-    </Routes>
-    </>
+        <>
+        <Routes>
+            <Route Component={Home} path='/'></Route>
+            <Route Component={Login} path='/login'></Route>
+            <Route Component={Signup} path='/signup'></Route>
+            <Route Component={Dashboard} path='/dashboard'></Route>
+        </Routes>
+        </>    
   )
 }
 

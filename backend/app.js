@@ -22,10 +22,14 @@ mongoose
   .catch(() => {
     console.log("Couldn't Connect to DB");
   });
-  app.use(cors({}));
+  app.use(cors({credentials:true}));
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
   app.use("/user", userRouter);
   app.use(router.indexRouter);
   app.use(routeNotFound);
+
+  
+
+
 app.listen(port, () => console.log(`Serving on  http://localhost:${port}`));

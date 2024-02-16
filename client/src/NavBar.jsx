@@ -1,39 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
 
-// Function to generate styles based on isActive
-const getNavLinkStyles = (isActive) => ({
-  color: isActive ? "red" : ""
-});
-
-function NavBar() {
+const Navbar = () => {
   return (
     <>
-      <div className='flex text-white justify-center gap-5' >
-        <NavLink
-          activeClassName='active'
-          to="/signup"
-          style={(data) => getNavLinkStyles(data.isActive)}
-        >
-          Signup
-        </NavLink>
-        <NavLink
-          activeClassName='active'
-          to="/login"
-          style={(data) => getNavLinkStyles(data.isActive)}
-        >
-          Login
-        </NavLink>
-        <NavLink
-          activeClassName='active'
-          to="/user/dashboard"
-          style={(data) => getNavLinkStyles(data.isActive)}
-        >
-          Dashboard
-        </NavLink>
-      </div>
+    <div className='flex items-center justify-center bg-slate-800 text-xl fixed  text-white gap-5 w-full text-center'>
+    <NavLink to="/">Home</NavLink>
+    <NavLink to="/signup">Signup</NavLink>
+    <NavLink to="/Login">Login</NavLink>
+    <NavLink to="/Dashboard">Dashboard</NavLink>
+    </div>
+  
     </>
-  )
-}
+  );
+};
 
-export default NavBar;
+export default Navbar;
