@@ -100,6 +100,7 @@ const login = async (req, res) => {
         httpOnly: true,
         maxAge: 360 * 60 * 60 * 1000,
         signed: true,
+        secure:true,
         expires: new Date(Date.now() + 360 * 60 * 60 * 1000),
       })
       .status(200).json({token})
