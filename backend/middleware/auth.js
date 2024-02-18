@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   try {
-    console.log(req.headers);
+    console.log(req);
     let token =  req.headers["x-authorizatoin"] 
     console.log(req.signedCookies)
     if (!token) {
