@@ -5,7 +5,7 @@ const port = PORT || 5000;
 const bodyParser = require("body-parser");
 const router = require("./routes");
 const cookieParser = require("cookie-parser");
-app.use(cookieParser(COOKIE_SECRET));
+app.use(cookieParser());
 const { userRouter } = require("./routes/user");
 const { default: mongoose } = require("mongoose");
 const { adminRouter } = require("./routes/adminRoutes");
