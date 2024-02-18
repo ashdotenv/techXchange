@@ -98,8 +98,7 @@ const login = async (req, res) => {
         httpOnly:true,
         sameSite:"none",
         expires: new Date(Date.now() + 100 * 24 * 60 * 60 * 1000),
-        secure:true,
-        sameSite:"none"
+        secure:true
     }).status(200).json({token})
   } catch (error) {
     if (error instanceof z.ZodError) {
