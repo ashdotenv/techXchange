@@ -23,7 +23,8 @@ mongoose
     console.log("Couldn't Connect to DB");
   });
   app.use(
-  cors()
+  cors({ origin: true,
+  credentials: true,})
 );
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
