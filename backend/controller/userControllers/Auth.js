@@ -96,6 +96,7 @@ const login = async (req, res) => {
 
       res.cookie("token",token,{
         httpOnly:true,
+        path:"/",
         sameSite:"none",
         expires: new Date(Date.now() + 100 * 24 * 60 * 60 * 1000),
         secure:true
