@@ -24,8 +24,7 @@ mongoose
   });
   app.use(
   cors({
-    methods:["GET","POST","PATCH","DELETE"].
-    origin: "*",
+    methods:["GET","POST","PATCH","DELETE"],
     credentials: true,
   })
 );
