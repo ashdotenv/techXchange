@@ -23,10 +23,7 @@ mongoose
     console.log("Couldn't Connect to DB");
   });
   app.use(
-  cors({
-    methods:["GET","POST","PATCH","DELETE"],
-    credentials: true,
-  })
+  cors()
 );
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
