@@ -22,10 +22,7 @@ mongoose
   .catch(() => {
     console.log("Couldn't Connect to DB");
   });
-  app.use(
-  cors({ origin: ["https://65d36d93d3230b25d78f5b18--astonishing-bublanina-091c1d.netlify.app/"],
-  credentials: true,})
-);
+  app.use(cors());
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
   app.use("/user", userRouter);
