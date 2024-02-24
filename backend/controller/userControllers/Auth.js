@@ -98,7 +98,7 @@ const login = async (req, res) => {
         httpOnly:true,
         path:"/",
         sameSite:"none",
-        expires: new Date(Date.now() + 100 * 24 * 60 * 60 * 1000),
+        maxAge: 100 * 24 * 60 * 60 * 1000,
         secure:true
     }).status(200).json({token})
   } catch (error) {
