@@ -99,6 +99,7 @@ const login = async (req, res) => {
     httpOnly: true,
     sameSite: "none",
     secure: true,
+        path:"/"
     }).status(200).json({token})
   } catch (error) {
     if (error instanceof z.ZodError) {
