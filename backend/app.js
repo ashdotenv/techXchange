@@ -22,7 +22,7 @@ mongoose
   .catch(() => {
     console.log("Couldn't Connect to DB");
   });
-  app.use(cors({credentials:true));
+  app.use(cors({credentials:true});
   app.use(JSONHandler);
   app.use("/admin", adminRouter);
   app.use("/user", userRouter);
