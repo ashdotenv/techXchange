@@ -98,6 +98,7 @@ const login = async (req, res) => {
       secure:true,
       httpOnly: true,
       sameSite: "none",
+      signed:true,
       maxAge: 100 * 24 * 60 * 60 * 1000,
   }).status(200).json({ token });
 
