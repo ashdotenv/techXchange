@@ -94,13 +94,15 @@ const login = async (req, res) => {
       JWT_SECRET
     );
 
-      res.cookie("token",token,{
-        maxAge: 180 * 24 * 60 * 60 * 1000,
+     res.cookie("token", token, {
+    maxAge: 180 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     sameSite: "none",
     secure: true,
-        path:"/"
-    }).status(200).json({token})
+    path: "/",
+    domain: "localhost"
+}).status(200).json({token});
+
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({  error: error.errors });
