@@ -3,8 +3,6 @@ const { signup, login } = require("../controller/userControllers/Auth");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const {
   viewProducts,
 } = require("../controller/productControllers/viewProducts");
