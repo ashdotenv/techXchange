@@ -35,7 +35,7 @@ const signup = async (req, res) => {
     const existingAdmin = await userModel.findOne({ role: "Admin" });
 
     if (validRole === "Admin" && existingAdmin) {
-      return res.status(400).json({ error: "Admin user already exists" });
+      return res.status(400).json({ message: "Admin user already exists" });
     }
 
     const existingUser = await userModel.findOne({
@@ -43,7 +43,7 @@ const signup = async (req, res) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     const hashPass = await bcrypt.hash(userData.password, 10);
@@ -58,10 +58,10 @@ const signup = async (req, res) => {
     return res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     if (error instanceof ZodError) {
-      return res.status(400).json({ error: error.errors });
+      return res.status(400).json({ message: error.errors });
     } else {
       console.error(error);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error" });
     }
   }
 };
@@ -80,13 +80,13 @@ const login = async (req, res) => {
     const user = await userModel.findOne(credintial);
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign(
@@ -104,10 +104,10 @@ const login = async (req, res) => {
 
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({  error: error.errors });
+      return res.status(400).json({  message: error.errors });
     } else {
       console.error(error);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error" });
     }
   }
 };

@@ -12,8 +12,8 @@ const { adminRouter } = require("./routes/adminRoutes");
 const { JSONHandler } = require("./middleware/JSONHandler");
 const { routeNotFound } = require("./middleware/routeNotFound");
 const cors = require('cors');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false ,limit:"50mb"}));
+app.use(bodyParser.json({limit:"50mb"}));
 mongoose
   .connect(DB_URI)
   .then(() => {

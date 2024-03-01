@@ -4,8 +4,7 @@ require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   try {
-    console.log(req);
-    let token =  req.cookies.token || req.cookie["token"].split("=")[1] || req.signedCookies.token
+    let token =   req.signedCookies.token
     if (!token) {
       return res.status(401).json({
         success: false,

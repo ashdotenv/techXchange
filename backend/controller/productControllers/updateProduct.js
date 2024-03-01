@@ -42,10 +42,12 @@ const productSchema = z.object({
     "Philips",
   ]),
   seller: z.string(), 
-  picture: z.string().optional(),
+  picture: z.array(z.string()).optional(),
   location: z.string(),
   quantity: z.number().default(1),
 });
+
+
 
 const updateProduct = async (req, res) => {
   try {
@@ -78,4 +80,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { updateProduct };
+module.exports = {updateProduct };
