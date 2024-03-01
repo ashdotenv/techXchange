@@ -22,10 +22,12 @@ const Signup = () => {
 
     try {
       console.log(formData);
+      axios.defaults.withCredentials=true
       const response = await axios.post('https://techxchange1.onrender.com/signup',JSON.stringify(formData));
+      const res = await response.data
+      console.log(res);
 
     } catch (error) {
-      // Handle signup error
       toast.error('Signup failed');
     }
   };

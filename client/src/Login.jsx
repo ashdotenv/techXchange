@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: '123@gmail.com',
-    password: 'password'
+    username: '',
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -22,8 +22,7 @@ function Login() {
     e.preventDefault();
     try {
       axios.withCredintials=true      
-      const response = await axios.post("https://techxchange1.onrender.com/login", formData);
-      console.log(response.headers.getSetCookie())
+      const response = await axios.post("http://localhost:5000/login", formData);
       toast.success('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error);

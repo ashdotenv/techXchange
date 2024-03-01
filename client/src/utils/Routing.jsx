@@ -4,6 +4,7 @@ import Home from '../Home'
 import Login from '../Login'
 import Signup from '../Signup'
 import Dashboard from '../Dashboard'
+import UpdateProduct from '../UpdateProduct'
 function Routing() {
     
   return (
@@ -13,6 +14,7 @@ function Routing() {
             <Route Component={Login} path='/login'></Route>
             <Route Component={Signup} path='/signup'></Route>
             <Route Component={Dashboard} path='/dashboard'></Route>
+            <Route Component={UpdateProduct} path='/user/updateProduct'></Route>
         </Routes>
         </>    
   )

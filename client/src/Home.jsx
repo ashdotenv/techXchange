@@ -7,8 +7,7 @@ function Home() {
   useEffect(() => {
     axios.get("https://techxchange1.onrender.com/products")
       .then(response => {
-        console.log(response.data);
-        setProduct(response.data);
+        setProduct(response.data.products);
       })
       .catch(error => {
         console.error('Error fetching products:', error);
@@ -16,7 +15,23 @@ function Home() {
   }, []);
 
   return (
-    <div>{JSON.stringify(product)}</div>
+    <>
+  <div className='flex'>
+    <div>
+      Categories <br /><ul>
+        {[...new Set(product.map((pr,i) =><li key={i}>{pr.category}</li> ))]}
+      </ul>
+    </div>
+    <div>
+    {product.map((p,i)=>(
+      <div key={i}>
+        {p.name}
+        {p.price}
+      </div>
+    ))}
+    </div>
+  </div>
+    </>
   );
 }
 
