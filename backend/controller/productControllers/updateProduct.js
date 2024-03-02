@@ -41,14 +41,11 @@ const productSchema = z.object({
     "JBL",
     "Philips",
   ]),
-  seller: z.string(), 
+  seller: z.string(),
   picture: z.array(z.string()).optional(),
   location: z.string(),
   quantity: z.number().default(1),
 });
-
-
-
 const updateProduct = async (req, res) => {
   try {
     const { productId } = req.params;
@@ -61,12 +58,22 @@ const updateProduct = async (req, res) => {
     if (!existingProduct) {
       return res
         .status(404)
-        .json({ error: "Product not found or you are not the seller." });
+        .json({ message: "Product not found or you are not the seller." });
     }
-    const inputData = productSchema.parse({
-      ...req.body,
-      seller: userId,
+
+    const updateFields = {};
+    Object.keys(req.body).forEach((key) => {
+      if (productSchema.shape[key]) {
+        if (key === "picture" && Array.isArray(req.body[key])) {
+          updateFields[key] = [...existingProduct[key], ...req.body[key]];
+        } else {
+          updateFields[key] = req.body[key];
+        }
+      }
     });
+
+    const inputData = productSchema.partial().parse(updateFields);
+    inputData.seller = userId;
 
     const updatedProduct = await productModel.findByIdAndUpdate(
       productId,
@@ -76,8 +83,8 @@ const updateProduct = async (req, res) => {
 
     res.status(200).json({ updatedProduct });
   } catch (error) {
-    res.status(400).json({ error: error.errors });
+    res.status(400).json({ message: error.errors });
   }
 };
 
-module.exports = {updateProduct };
+module.exports = { updateProduct };

@@ -48,6 +48,8 @@ const productSchema = z.object({
 });
 
 const addProduct = async (req, res) => {
+  req.body.quantity=parseInt(req.body.quantity) 
+  req.body.price=parseInt(req.body.price) 
   try {
     req.body.seller = req.user.id;
     const inputData = productSchema.parse(req.body);
@@ -58,9 +60,8 @@ const addProduct = async (req, res) => {
     res.status(201).json(savedProduct);
   } catch (error) {
     console.error("Error adding product:", error.errors);
-    res.status(400).json({ error: "Invalid data" });
+    res.status(400).json({ message: "Invalid data" });
   }
 };
-
 
 module.exports = { addProduct };

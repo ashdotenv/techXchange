@@ -10,7 +10,7 @@ const deleteProduct = async (req, res) => {
     if (product) {
       if (req.user.id !== product.seller._id.toString()) {
         return res.status(403).json({
-          error: "You do not have permission to delete this product",
+          message: "You do not have permission to delete this product",
         });
       }
       let deletedProduct = await product.deleteOne();

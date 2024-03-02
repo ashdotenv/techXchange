@@ -52,7 +52,7 @@ const placeOrder = async (req, res) => {
     res.status(201).json(savedOrder);
   } catch (error) {
     console.error('Error placing order:', error);
-    res.status(400).json({ error: 'Invalid data' });
+    res.status(400).json({ message: 'Invalid data' });
   }
 };
 

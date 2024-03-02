@@ -5,3 +5,4 @@ readme.node_modules
 .dockerignore
 ../client
 .github
+uploads
