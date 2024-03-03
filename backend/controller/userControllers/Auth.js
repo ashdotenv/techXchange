@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../../config");
 const UserRole = z.enum(["Admin", "User"]);
 
+//zod schema for validation
 const userSchema = z.object({
   username: z.string().min(3).max(30),
   email: z.string().email(),
@@ -16,9 +17,11 @@ const userSchema = z.object({
 });
 
 const validateUserRole = (role) => {
+  //checking privilege
   try {
     return UserRole.parse(role);
   } catch (error) {
+    //throwing zod error for more specific info
     if (error instanceof ZodError) {
       throw new Error("Invalid user role");
     }
@@ -32,12 +35,14 @@ const signup = async (req, res) => {
 
     const validRole = validateUserRole(userData.role);
 
+    //there can only be 1 admin
     const existingAdmin = await userModel.findOne({ role: "Admin" });
-
+    //making sure adming doesn't already exist
     if (validRole === "Admin" && existingAdmin) {
       return res.status(400).json({ message: "Admin user already exists" });
     }
 
+    //making user adming doesn't already exist
     const existingUser = await userModel.findOne({
       $or: [{ email: userData.email }, { username: userData.username }],
     });
@@ -45,14 +50,14 @@ const signup = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
-
+    //hashing password 10 rounds
     const hashPass = await bcrypt.hash(userData.password, 10);
     const newUser = new userModel({
       ...userData,
       role: validRole,
       password: hashPass,
     });
-
+    //saving user to db after all validation
     await newUser.save();
 
     return res.status(201).json({ message: "User registered successfully" });
@@ -68,14 +73,15 @@ const signup = async (req, res) => {
 
 const loginSchema = z.object({
   username: z.string().min(3).max(100).optional(),
-  email : z.string().email().optional(),
+  email: z.string().email().optional(),
   password: z.string().min(6),
 });
 const login = async (req, res) => {
   try {
     const { username, password } = loginSchema.parse(req.body);
-    let credintial =username.includes("@")?{email:username}:{username:username};
-
+    let credintial = username.includes("@")
+      ? { email: username }
+      : { username: username };
 
     const user = await userModel.findOne(credintial);
 
@@ -94,17 +100,19 @@ const login = async (req, res) => {
       JWT_SECRET
     );
 
-    res.cookie("token", token, {
-      secure:true,
-      httpOnly: true,
-      sameSite: "none",
-      signed:true,
-      maxAge: 100 * 24 * 60 * 60 * 1000,
-  }).status(200).json({ token });
-
+    res
+      .cookie("token", token, {
+        secure: true,
+        httpOnly: true,
+        sameSite: "none",
+        signed: true,
+        maxAge: 100 * 24 * 60 * 60 * 1000,
+      })
+      .status(200)
+      .json({ token });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return res.status(400).json({  message: error.errors });
+      return res.status(400).json({ message: error.errors });
     } else {
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });

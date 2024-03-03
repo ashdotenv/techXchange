@@ -1,3 +1,4 @@
+// export environment variable to be showup globally ony IDE
 require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const COOKIE_SECRET = process.env.COOKIE_SECRET;

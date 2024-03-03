@@ -1,6 +1,7 @@
 const { productModel } = require("../../model/product.model");
 const { z } = require("zod");
 
+//Zod vlaidation for price {/?price=0-1000}
 const priceSchema = z.string().refine(
   (value) => {
     const priceFormat = /^\d+(\.\d+)?(-\d+(\.\d+)?)?$/;
@@ -8,7 +9,7 @@ const priceSchema = z.string().refine(
   },
   { message: "Invalid price format" }
 );
-
+//same for quantity 
 const quantitySchema = z.string().refine(
   (value) => {
     const quantityFormat = /^\d+(-\d+)?$/;
@@ -19,6 +20,7 @@ const quantitySchema = z.string().refine(
 
 const viewProducts = async (req, res) => {
   try {
+    //filtering products for query patameters 
     let filters = {};
     let {
       price,
@@ -61,7 +63,7 @@ const viewProducts = async (req, res) => {
           message: error.message,
         });
       }
-
+      
       const quantityRange = quantity.split("-");
       filters.quantity = {
         $gte: parseInt(quantityRange[0]),
@@ -79,7 +81,7 @@ const viewProducts = async (req, res) => {
         $lte: parseFloat(ratingRange[1]),
       };
     }
-
+    //using regex for to eliminate case sensitivity 
     if (condition) {
       filters.condition = new RegExp(condition, "i");
     }

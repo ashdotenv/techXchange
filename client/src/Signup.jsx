@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const BASE_URI=import.meta.env.VITE_BACKEND_URI
+
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +26,7 @@ const Signup = () => {
     try {
       console.log(formData);
       axios.defaults.withCredentials=true
-      const response = await axios.post('https://techxchange1.onrender.com/signup',JSON.stringify(formData));
+      const response = await axios.post(`${BASE_URI}/signup`,JSON.stringify(formData));
       const res = await response.data
       console.log(res);
 
@@ -33,7 +36,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-70">
+    <div className="flex items-center justify-center min-h-screen bg-opacity-70">
       <div className="bg-white shadow-md rounded px-8 py-8">
         <h2 className="text-2xl mb-6 text-center font-bold">Signup</h2>
         <form onSubmit={handleSubmit}>
@@ -117,6 +120,7 @@ const Signup = () => {
               Sign Up
             </button>
           </div>
+          <span className='text-black'>Already have an accoun? <Link className='text-sky-600 font-bold' to={"/Login"}>Login</Link> </span>
         </form>
       </div>
       <ToastContainer position="bottom-right" autoClose={3000} />
