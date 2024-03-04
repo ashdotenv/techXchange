@@ -4,6 +4,7 @@ const router = express.Router();
 router.post("/", verifyToken, isAdmin, (req, res) => {
   res.send("welcome to admin routes");
 });
+//ban user routes it deletes user ans all the products listed by the user
 router.post("/banUser", verifyToken, isAdmin, (req, res) => {
   res.send("welcome to admin routes");
 });

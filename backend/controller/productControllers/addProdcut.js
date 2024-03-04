@@ -1,6 +1,8 @@
 const { z } = require("zod");
 const { productModel } = require("../../model/product.model");
 
+
+//Zod for Validation
 const productSchema = z.object({
   name: z.string().max(100).min(1),
   description: z.string().min(1),
@@ -48,14 +50,15 @@ const productSchema = z.object({
 });
 
 const addProduct = async (req, res) => {
+  //When sending from postman's formData it sent as String 
   req.body.quantity=parseInt(req.body.quantity) 
   req.body.price=parseInt(req.body.price) 
   try {
+    //setting the user to seller
     req.body.seller = req.user.id;
     const inputData = productSchema.parse(req.body);
     const newProduct = new productModel(inputData);
-
-    const savedProduct = await newProduct.save();
+    const savedProduct = await newProduct.save(); //saving to DB
 
     res.status(201).json(savedProduct);
   } catch (error) {
