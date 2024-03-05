@@ -29,7 +29,7 @@ app.use(JSONHandler); //JSON handler middleware to make sure JSON data
 
 app.use("/admin", adminRouter);//admin route
 app.use("/user", userRouter);//user route
-app.use("api/v1",router.indexRouter);//index route
+app.use("/api/v1",router.indexRouter);//index route
 app.use(routeNotFound);//404 middleware
 
 mongoose
