@@ -5,11 +5,9 @@ router.post("/", verifyToken, isAdmin, (req, res) => {
   res.send("welcome to admin routes");
 });
 //ban user routes it deletes user ans all the products listed by the user
-router.post("/banUser", verifyToken, isAdmin, (req, res) => {
+router.post("/deleteUser", verifyToken, isAdmin, (req, res) => {
   res.send("welcome to admin routes");
 });
-router.get("/", verifyToken, isAdmin, (req, res) => {
-  res.send("welcome to admin routes");
-});
+
 
 module.exports = { adminRouter: router };
