@@ -1,7 +1,7 @@
 const { productModel } = require("../../model/product.model");
 const { z } = require("zod");
 
-//Zod vlaidation for price {/?price=0-1000}
+// Zod validation for price {/?price=0-1000}
 const priceSchema = z.string().refine(
   (value) => {
     const priceFormat = /^\d+(\.\d+)?(-\d+(\.\d+)?)?$/;
@@ -9,7 +9,8 @@ const priceSchema = z.string().refine(
   },
   { message: "Invalid price format" }
 );
-//same for quantity 
+
+// Zod validation for quantity
 const quantitySchema = z.string().refine(
   (value) => {
     const quantityFormat = /^\d+(-\d+)?$/;
@@ -20,8 +21,10 @@ const quantitySchema = z.string().refine(
 
 const viewProducts = async (req, res) => {
   try {
-    //filtering products for query patameters 
+    // Initialize empty filters object
     let filters = {};
+
+    // Extract query parameters
     let {
       price,
       quantity,
@@ -32,8 +35,10 @@ const viewProducts = async (req, res) => {
       location,
       seller,
       rating,
+      description,
     } = req.query;
 
+    // Validate and process price filter
     if (price) {
       try {
         priceSchema.parse(price);
@@ -54,6 +59,7 @@ const viewProducts = async (req, res) => {
       }
     }
 
+    // Validate and process quantity filter
     if (quantity) {
       try {
         quantitySchema.parse(quantity);
@@ -63,7 +69,7 @@ const viewProducts = async (req, res) => {
           message: error.message,
         });
       }
-      
+
       const quantityRange = quantity.split("-");
       filters.quantity = {
         $gte: parseInt(quantityRange[0]),
@@ -74,6 +80,27 @@ const viewProducts = async (req, res) => {
       }
     }
 
+    // Process other filters using regex and case-insensitive search
+    if (category) {
+      filters.category = new RegExp(category, "i");
+    }
+    if (description) {
+      filters.description = new RegExp(description, "i");
+    }
+    if (brand) {
+      filters.brand = new RegExp(brand, "i");
+    }
+    if (name) {
+      filters.name = new RegExp(name, "i");
+    }
+    if (location) {
+      filters.location = new RegExp(location, "i");
+    }
+    if (seller) {
+      filters.seller = new RegExp(seller, "i");
+    }
+
+    // Process rating filter
     if (rating) {
       const ratingRange = rating.split("-");
       filters.rating = {
@@ -81,52 +108,32 @@ const viewProducts = async (req, res) => {
         $lte: parseFloat(ratingRange[1]),
       };
     }
-    //using regex for to eliminate case sensitivity 
-    if (condition) {
-      filters.condition = new RegExp(condition, "i");
-    }
 
-    if (category) {
-      filters.category = new RegExp(category, "i");
-    }
-
-    if (brand) {
-      filters.brand = new RegExp(`^${brand}`, "i");
-    }
-
-    if (name) {
-      filters.name = new RegExp(`^${name}`, "i");
-    }
-
-    if (location) {
-      filters.location = new RegExp(`^${location}`, "i");
-    }
-
-    if (seller) {
-      filters.seller = new RegExp(`^${seller}`, "i");
-    }
-
+    // Exclude known query parameters from filtering
+    const excludeParams = [
+      "price",
+      "quantity",
+      "condition",
+      "category",
+      "brand",
+      "name",
+      "description",
+      "location",
+      "seller",
+      "rating",
+    ];
     Object.keys(req.query).forEach((key) => {
-      if (
-        ![
-          "price",
-          "quantity",
-          "condition",
-          "category",
-          "brand",
-          "name",
-          "description",
-          "location",
-          "seller",
-          "rating",
-        ].includes(key)
-      ) {
+      if (!excludeParams.includes(key)) {
         filters[key] = new RegExp(req.query[key], "i");
       }
     });
 
-    const products = await productModel.find(filters);
+    // Perform the database query with filters
+    const products = await productModel
+      .find(filters)
+      .populate({ path: "seller", select: "username" });
 
+    // Return the results
     res.status(200).json({
       success: true,
       products: products,

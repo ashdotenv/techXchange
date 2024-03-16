@@ -12,7 +12,7 @@ cloudinary.config({
 
 const uploadToCloudinary = (req, res, next) => {
   if (!req.files || req.files.length === 0) {
-    return next({ error: "No files were uploaded." });
+    return next({ message: "No files were uploaded." });
   }
 
   const uploadedFiles = [];
@@ -39,7 +39,7 @@ const uploadToCloudinary = (req, res, next) => {
       next();
     })
     .catch((error) => {
-      res.status(500).json({ error: "Failed to upload files to Cloudinary." });
+      res.status(500).json({ message: "Failed to upload files to Cloudinary." });
     });
 };
 

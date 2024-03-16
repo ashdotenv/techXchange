@@ -1,7 +1,5 @@
 const { default: mongoose } = require("mongoose");
 const { productModel } = require("../../model/product.model");
-const { userModel } = require("../../model/user.model");
-const jwt = require("jsonwebtoken");
 
 const deleteProduct = async (req, res) => {
   try {
@@ -14,7 +12,12 @@ const deleteProduct = async (req, res) => {
         });
       }
       let deletedProduct = await product.deleteOne();
-      return res.status(200).json({ message: "Product Deleted Successfully", deletedProduct: deletedProduct });
+      return res
+        .status(200)
+        .json({
+          message: "Product Deleted Successfully",
+          deletedProduct: deletedProduct,
+        });
     } else if (!product) {
       return res.status(404).json({ message: "Product doesn't Exist" });
     }
