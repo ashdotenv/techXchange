@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
+const { userModel } = require("../model/user.model");
 require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   try {
-    let token =   req.signedCookies.token
+    let token = req.signedCookies.token;
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -31,7 +32,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-const isAdmin = (req, res, next) => {
+const isAdmin = async (req, res, next) => {
   try {
     if (req.user.role !== "Admin") {
       return res.status(401).json({
@@ -39,6 +40,7 @@ const isAdmin = (req, res, next) => {
         message: "This is a protected route for Admin you cannot access it",
       });
     }
+
     return next();
   } catch (err) {
     console.error(err.message);

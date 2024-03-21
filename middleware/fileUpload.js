@@ -1,6 +1,10 @@
 const multer = require("multer");
 const { v2: cloudinary } = require("cloudinary");
-const { CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = require("../config");
+const {
+  CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
+} = require("../config");
 
 const storage = multer.diskStorage({});
 const upload = multer({ storage });
@@ -39,7 +43,9 @@ const uploadToCloudinary = (req, res, next) => {
       next();
     })
     .catch((error) => {
-      res.status(500).json({ message: "Failed to upload files to Cloudinary." });
+      res
+        .status(500)
+        .json({ message: "Failed to upload files to Cloudinary." });
     });
 };
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -11,9 +12,6 @@ const { JSONHandler } = require("./middleware/JSONHandler");
 const { routeNotFound } = require("./middleware/routeNotFound");
 const { upload, uploadToCloudinary } = require("./middleware/fileUpload");
 
-const app = express();
-
-
 app.use(cookieParser(COOKIE_SECRET));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -24,10 +22,8 @@ app.use(
   })
 );
 app.use(upload.array("picture", 6));
-app.use(uploadToCloudinary);
-app.use(JSONHandler)
+app.use(JSONHandler);
 app.use("/api/v1", router.indexRouter);
 app.use(routeNotFound);
-
 
 module.exports = { app };

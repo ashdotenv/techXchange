@@ -13,6 +13,7 @@ const { Dashboard } = require("../controller/userControllers/Dashboard");
 const {
   updateOrders,
 } = require("../controller/productControllers/updateOrders");
+const { upload } = require("../middleware/fileUpload");
 
 router.get("/", verifyToken, isUser, (req, res) => {
   res.send("welcome to user routes");
@@ -26,6 +27,6 @@ router.post("/", verifyToken, isUser, (req, res) => {
 router.delete("/deleteProduct/:id", verifyToken, isUser, deleteProduct);
 router.patch("/updateProduct/:productId", verifyToken, isUser, updateProduct);
 router.post("/placeOrder", verifyToken, isUser, placeOrder);
-router.post("/addProduct", verifyToken, isUser, addProduct);
+router.post("/addProduct",upload.array("picture", 6),verifyToken, isUser, addProduct);
 router.post("/updateOrders", verifyToken, isUser, updateOrders);
 module.exports = { userRouter: router };
