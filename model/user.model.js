@@ -35,7 +35,7 @@ const userDetails = new mongoose.Schema(
       type: String,
       enum: ["Admin", "User"],
       required: true,
-      default:"User"
+      default: "User",
     },
   },
   { timestamps: true }

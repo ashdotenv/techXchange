@@ -1,13 +1,7 @@
 const { z } = require('zod');
 const { productModel } = require('../../model/product.model');
 const { orders } = require('../../model/orders.model');
-
-const placeOrderSchema = z.object({
-  product: z.string(),
-  quantity: z.number().min(1),
-  paymentMethod: z.enum(['Credit Card', 'Debit Card', 'PayPal', 'Cash on Delivery']),
-  shippingAddress: z.string(),
-});
+const { placeOrderSchema } = require('../../utils/Zod');
 
 const placeOrder = async (req, res) => {
   try {

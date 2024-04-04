@@ -19,7 +19,7 @@ const Dashboard = async (req, res) => {
   }
   return res.json({
     username: req.user.username,
-    userOrders: userOrders,
+    // userOrders: userOrders,
     userProducts:userProducts,
     totalOrderRevenue: totalOrderRevenue,
     deliveredOrders: deliveredOrders,

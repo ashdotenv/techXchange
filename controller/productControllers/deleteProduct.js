@@ -4,6 +4,7 @@ const { productModel } = require("../../model/product.model");
 const deleteProduct = async (req, res) => {
   try {
     let { id } = req.params;
+    console.log(id);
     const product = await productModel.findOne({ _id: id });
     if (product) {
       if (req.user.id !== product.seller._id.toString()) {
