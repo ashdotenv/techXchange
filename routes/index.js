@@ -13,5 +13,6 @@ router.get("/logout", logout);
 router.get("/seller/:username", viewSeller);
 router.use("/user", userRouter);
 router.use("/admin", adminRouter);
+router.use("/products", viewProducts);
 
-module.exports = { router };
+module.exports = {  router };
