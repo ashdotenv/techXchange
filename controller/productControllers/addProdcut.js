@@ -1,4 +1,3 @@
-const { z } = require("zod");
 const { productModel } = require("../../model/product.model");
 const { uploadToCloudinary } = require("../../middleware/fileUpload");
 const { productSchema } = require("../../utils/Zod");

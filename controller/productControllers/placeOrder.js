@@ -1,4 +1,3 @@
-const { z } = require('zod');
 const { productModel } = require('../../model/product.model');
 const { orders } = require('../../model/orders.model');
 const { placeOrderSchema } = require('../../utils/Zod');

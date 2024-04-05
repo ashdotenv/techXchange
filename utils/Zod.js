@@ -49,5 +49,15 @@ const productSchema = z.object({
     paymentMethod: z.enum(['Credit Card', 'Debit Card', 'PayPal', 'Cash on Delivery']),
     shippingAddress: z.string(),
   });
+  const updateOrdersSchema = z.object({
+    status: z.enum([
+      "Pending",
+      "Processing",
+      "Shipped",
+      "Delivered",
+      "Cancelled",
+    ]).optional(),
+    shippingAddress: z.string().min(5).optional(),
+  });
   
-module.exports={productSchema,placeOrderSchema}  
+module.exports={productSchema,placeOrderSchema,updateOrdersSchema}  
