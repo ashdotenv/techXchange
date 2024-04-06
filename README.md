@@ -77,3 +77,72 @@
   - `location`: A string specifying the location of the product.
   - `seller`: A string identifying the seller of the product.
   - `quantity`: A number indicating the quantity of the product available.
+ 
+## Delete Product Endpoint
+
+- **Endpoint:** `/api/v1/products/:id`
+- **Method:** `DELETE`
+
+Deletes a product from the database.
+
+### Request Parameters
+
+- `id`: The unique identifier of the product to be deleted.
+
+### Response
+
+- **Status Code:** 200
+  - **Message:** "Product Deleted Successfully"
+  - **Deleted Product:** Details of the deleted product.
+
+- **Status Code:** 403
+  - **Message:** "You do not have permission to delete this product"
+
+- **Status Code:** 404
+  - **Message:** "Product doesn't Exist"
+
+- **Status Code:** 500
+  - **Message:** "Internal Server Error"
+
+### Example Usage
+    `` DELETE /api/v1/products/609c04e0e822c83e8c94f5d2
+
+## Update Product Endpoint
+
+- **Endpoint:** `/api/v1/products/:productId`
+- **Method:** `PUT`
+
+Updates an existing product in the database.
+
+### Request Parameters
+
+- `productId`: The unique identifier of the product to be updated.
+
+### Request Body
+
+The request body should contain the fields to be updated in the product. Only fields defined in the product schema will be updated.
+
+### Response
+
+- **Status Code:** 200
+  - **Updated Product:** Details of the updated product.
+
+- **Status Code:** 404
+  - **Message:** "Product not found or you are not the seller."
+
+- **Status Code:** 400
+  - **Message:** Error message indicating the validation errors in the request body.
+
+### Example Usage
+
+```http
+PUT /api/v1/products/609c04e0e822c83e8c94f5d2
+Content-Type: application/json
+
+{
+  "name": "Updated Product Name",
+  "price": 200
+}
+
+
+
