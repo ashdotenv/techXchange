@@ -133,16 +133,5 @@ The request body should contain the fields to be updated in the product. Only fi
 - **Status Code:** 400
   - **Message:** Error message indicating the validation errors in the request body.
 
-### Example Usage
-
-```http
-PUT /api/v1/products/609c04e0e822c83e8c94f5d2
-Content-Type: application/json
-
-{
-  "name": "Updated Product Name",
-  "price": 200
-}
-
 
 
