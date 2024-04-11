@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  node_app:
+    image: node:21-alpine3.17
+    container_name: node_app
+    environment:
+      - CLOUD_NAME=
+      - CLOUDINARY_API_KEY=
+      - CLOUDINARY_API_SECRET=
+      - COOKIE_SECRET=
+      - DB_URI=mongodb://mongo:27017/your_database_name
+      - JWT_SECRET=
+      - PORT=5000
+    volumes:
+      - vol:/usr/src/app
+    ports:
+      - "5000:5000"
+    networks:
+      - dbnet
+    working_dir: /usr/src/app
+    command: ["node", "server.js"]
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - vol:/data/db
+    networks:
+      - dbnet
+
+networks:
+  dbnet:
+
+volumes:
+  vol:
