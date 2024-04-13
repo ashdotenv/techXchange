@@ -104,9 +104,6 @@ Deletes a product from the database.
 - **Status Code:** 500
   - **Message:** "Internal Server Error"
 
-### Example Usage
-    `` DELETE /api/v1/products/609c04e0e822c83e8c94f5d2
-
 ## Update Product Endpoint
 
 - **Endpoint:** `/api/v1/products/:productId`
